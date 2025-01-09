@@ -2,9 +2,9 @@
 การพัฒนา Golang API อย่างง่าย โดยเน้นไปที่การปรับใช้หลักการ SOLID และ Testing
 
 ## ก่อนอื่นให้ติดตั้ง Redis จาก [Docker Hub](https://hub.docker.com/_/redis) ก่อน
-1. ติดตั้ง redis image
+1. ติดตั้ง dependencies:
     ```sh
-    go mod download
+    docker pull redis
     ```
 2. รัน redis ด้วย docker
     ```sh
@@ -22,22 +22,16 @@
     ```
 
 ## หลังจาก Clone โปรเจคมาแล้ว
-1. ติดตั้ง dependencies:
+1. ติดตั้ง redis image
     ```sh
-    docker pull redis
+    go mod tidy
+
+2. รันโปรเจค:
+    ```sh
+    go run .
     ```
 
-2. สร้าง binary:
-    ```sh
-    go build -o simple-crud-api
-    ```
-
-3. รันโปรเจค:
-    ```sh
-    go run main.go
-    ```
-
-4. ทดสอบ API:
+3. ทดสอบ API:
     ```sh
     curl -X GET http://localhost:8000/items
     curl -X GET http://localhost:8000/items/1
@@ -46,7 +40,7 @@
     curl -X DELETE http://localhost:8000/items/1
     ```
 
-5. รัน test
+4. รัน test
     ```sh
     go test ./handlers
     ```
